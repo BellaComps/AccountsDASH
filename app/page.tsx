@@ -1,5 +1,3 @@
-import { createSupabaseServerClient } from "@/lib/supabase/server";
-
 const kpis = [
   { label: "Net Worth (GBP)", value: "£124,580", detail: "Include pending" },
   { label: "Income", value: "£32,900", detail: "+12% vs last period" },
@@ -25,20 +23,12 @@ const socialHighlights = [
   { label: "Action Plan", value: "Repost best 1h performers Wed/Fri" }
 ];
 
-export default async function OverviewPage() {
-  const supabase = createSupabaseServerClient();
-  const {
-    data: { user }
-  } = await supabase.auth.getUser();
-
+export default function OverviewPage() {
   return (
     <div className="grid" style={{ gap: 24 }}>
       <section>
         <h1>Overview Dashboard</h1>
         <p className="badge">Timeframe: Month</p>
-        <p style={{ marginTop: 8, color: "#475569" }}>
-          Signed in as {user?.email ?? "unknown"}
-        </p>
         <div className="grid two" style={{ marginTop: 16 }}>
           {kpis.map((kpi) => (
             <div key={kpi.label} className="kpi">

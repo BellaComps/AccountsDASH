@@ -1,62 +1,26 @@
-import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { updateSettings } from "./actions";
+const settings = [
+  { label: "Base Currency", value: "GBP" },
+  { label: "Timezone", value: "Europe/London" },
+  { label: "FX Provider", value: "Frankfurter" },
+  { label: "FX Cache", value: "30 minutes" },
+  { label: "Accounts & Categories", value: "Manage" },
+  { label: "Social Connectors", value: "Feature flags" }
+];
 
-export default async function SettingsPage() {
-  const supabase = createSupabaseServerClient();
-  const {
-    data: { user }
-  } = await supabase.auth.getUser();
-
-  const { data: settings } = user
-    ? await supabase
-        .from("settings")
-        .select("base_currency, timezone, fx_provider, fx_cache_minutes")
-        .eq("user_id", user.id)
-        .maybeSingle()
-    : { data: null };
-
+export default function SettingsPage() {
   return (
     <div className="grid" style={{ gap: 24 }}>
       <section>
         <h1>Settings</h1>
-        <p>Configure base currency, timezone, FX provider, and caching.</p>
-        <form action={updateSettings} className="grid" style={{ gap: 16, maxWidth: 520 }}>
-          <label>
-            Base Currency
-            <input
-              name="baseCurrency"
-              defaultValue={settings?.base_currency ?? "GBP"}
-              required
-            />
-          </label>
-          <label>
-            Timezone
-            <input
-              name="timezone"
-              defaultValue={settings?.timezone ?? "Europe/London"}
-              required
-            />
-          </label>
-          <label>
-            FX Provider
-            <input
-              name="fxProvider"
-              defaultValue={settings?.fx_provider ?? "Frankfurter"}
-              required
-            />
-          </label>
-          <label>
-            FX Cache Minutes
-            <input
-              name="fxCacheMins"
-              type="number"
-              min={5}
-              defaultValue={settings?.fx_cache_minutes ?? 30}
-              required
-            />
-          </label>
-          <button type="submit">Save settings</button>
-        </form>
+        <p>Configure base currency, timezone, FX, and connectors.</p>
+        <div className="grid two" style={{ marginTop: 16 }}>
+          {settings.map((setting) => (
+            <div key={setting.label} className="kpi">
+              <h3>{setting.label}</h3>
+              <p style={{ margin: 0 }}>{setting.value}</p>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section>

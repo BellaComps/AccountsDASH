@@ -1,7 +1,5 @@
 import "./globals.css";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export const metadata = {
   title: "AccountsDASH",
@@ -18,43 +16,20 @@ const navLinks = [
   { href: "/settings", label: "Settings" }
 ];
 
-async function signOut() {
-  "use server";
-  const supabase = createSupabaseServerClient();
-  await supabase.auth.signOut();
-  redirect("/login");
-}
-
-export default async function RootLayout({
+export default function RootLayout({
   children
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = createSupabaseServerClient();
-  const {
-    data: { user }
-  } = await supabase.auth.getUser();
-
   return (
     <html lang="en">
       <body>
         <nav className="nav">
-          <div className="nav-left">
-            {navLinks.map((link) => (
-              <Link key={link.href} href={link.href}>
-                {link.label}
-              </Link>
-            ))}
-          </div>
-          <div className="nav-right">
-            {user ? (
-              <form action={signOut}>
-                <button type="submit">Sign out</button>
-              </form>
-            ) : (
-              <Link href="/login">Sign in</Link>
-            )}
-          </div>
+          {navLinks.map((link) => (
+            <Link key={link.href} href={link.href}>
+              {link.label}
+            </Link>
+          ))}
         </nav>
         <main>{children}</main>
       </body>

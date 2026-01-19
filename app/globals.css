@@ -64,8 +64,6 @@ section {
 
 .nav {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   gap: 16px;
   padding: 16px 24px;
   background: #0f172a;
@@ -81,17 +79,6 @@ section {
   font-weight: 600;
 }
 
-.nav-left,
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.nav-right form {
-  margin: 0;
-}
-
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -103,37 +90,4 @@ section {
   border-bottom: 1px solid #e2e8f0;
   text-align: left;
   font-size: 14px;
-}
-
-label {
-  display: grid;
-  gap: 6px;
-  font-size: 14px;
-  color: #1f2937;
-}
-
-input {
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid #cbd5f5;
-  background: #ffffff;
-  font-size: 14px;
-}
-
-button {
-  padding: 10px 16px;
-  border: none;
-  border-radius: 10px;
-  background: #1d4ed8;
-  color: #ffffff;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-button[type="submit"] {
-  font-size: 14px;
-}
-
-button:hover {
-  background: #1e40af;
 }
